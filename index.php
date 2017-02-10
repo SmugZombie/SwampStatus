@@ -18,13 +18,23 @@ table{ width: 100%; }
 </style>
 
 <table class="center Absolute-Center">
-<tr><td class='swampStatus'> Swamp Status: <span id='swampStatus'>Loading...</span></td></tr>
+<tr><td id='swampStatusHolder' class='swampStatus'> Swamp Status: <span id='swampStatus'>Loading...</span></td></tr>
 <tr><td><button id='setButton1' class="toggle" onclick='setStatus(0)'>Mark Open</button> <button id='setButton2' class="toggle" onclick='setStatus(1)'>Mark In Use</button></td></tr>
 </table>
 
 
 
 <script>
+customKey = location.search.split('tv=')[1];
+if(!customKey){
+	customKey = "";
+}
+
+if(customKey == "true"){
+	document.getElementById("swampStatusHolder").style.fontSize = "180pt";
+	document.getElementById("swampStatus").style.display = "block";
+}
+
 function getStatus(){
 	$.getJSON( "/api/?action=get", function( json ) {
 		status = json['status'];
